@@ -12,19 +12,55 @@
 */
 
 import UIKit
+import BMSCore
+import BMSAnalyticsSpec
 
 class ViewController: UIViewController {
 
+	@IBOutlet weak var pingButton: UIButton!
+	@IBOutlet weak var topLabel: UILabel!
+	@IBOutlet weak var bottomLabel: UILabel!
+	@IBOutlet weak var errorTextView: UITextView!
+
+	let logger = Logger.loggerForName("ViewController")
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		// Do any additional setup after loading the view, typically from a nib.
 	}
 
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
-		// Dispose of any resources that can be recreated.
 	}
-
+	@IBAction func testBluemixConnection(sender: AnyObject) {
+		self.pingButton.backgroundColor = UIColor (red:0.0/255.0, green:174.0/255.0, blue:211.0/255.0, alpha:1)
+		
+		let request = Request(url: "/protected", method: HttpMethod.GET)
+		
+		request.sendWithCompletionHandler { (response, error) -> Void in
+			if let error = error{
+				self.logger.error(error.description)
+				dispatch_async(dispatch_get_main_queue(), {
+					self.topLabel.text = "Bummer"
+					self.bottomLabel.text = "Something Went Wrong"
+					if (!error.localizedDescription.isEmpty){
+						let errorMsg =  error.localizedDescription + " Please verify the ApplicationRoute and ApplicationID"
+						self.errorTextView.text = errorMsg
+					} else{
+						self.errorTextView.text = "Please verify the ApplicationRoute and ApplicationID"
+					}
+				})
+			} else {
+				self.logger.info("You have connected to Bluemix successfully")
+				dispatch_async(dispatch_get_main_queue(), {
+					self.topLabel.text = "Yay!"
+					self.bottomLabel.text = "You Are Connected"
+					self.errorTextView.text = ""
+					self.pingButton.backgroundColor = UIColor (red:28.0/255.0, green:178.0/255.0, blue:153.0/255.0, alpha:1)
+				})
+			}
+			self.pingButton.backgroundColor = UIColor (red:28.0/255.0, green:178.0/255.0, blue:153.0/255.0, alpha:1)
+		}
+	}
 
 }
 

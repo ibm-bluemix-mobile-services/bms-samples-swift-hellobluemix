@@ -13,15 +13,23 @@
 
 
 import UIKit
+import BMSCore
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
-
+	let appRoute = "your-app-route"
+	let appGuid = "your-app-guid"
+	let bluemixRegion = BMSClient.REGION_US_SOUTH
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-		// Override point for customization after application launch.
+		
+		BMSClient.sharedInstance
+			.initializeWithBluemixAppRoute(appRoute,
+			                               bluemixAppGUID: appGuid,
+			                               bluemixRegion: bluemixRegion)
+		
 		return true
 	}
 
