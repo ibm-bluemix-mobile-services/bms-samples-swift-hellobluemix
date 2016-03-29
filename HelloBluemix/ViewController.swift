@@ -34,7 +34,7 @@ class ViewController: UIViewController {
 	@IBAction func testBluemixConnection(sender: AnyObject) {
 		self.pingButton.backgroundColor = UIColor (red:0.0/255.0, green:174.0/255.0, blue:211.0/255.0, alpha:1)
 		
-		let request = Request(url: "/protected", method: HttpMethod.GET)
+		let request = Request(url: "/", method: HttpMethod.GET)
 		
 		request.sendWithCompletionHandler { (response, error) -> Void in
 			if let error = error{
