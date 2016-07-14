@@ -19,9 +19,11 @@ import BMSCore
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
+    
+    // Add your Bluemix credentials
 	let appRoute = "your-app-route"
 	let appGuid = "your-app-guid"
-	let bluemixRegion = BMSClient.REGION_US_SOUTH
+	let bluemixRegion = BMSClient.REGION_US_SOUTH // Please be sure to update region appropriately when not using US_SOUTH
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		
