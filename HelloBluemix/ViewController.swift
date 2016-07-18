@@ -13,7 +13,7 @@
 
 import UIKit
 import BMSCore
-import BMSAnalyticsSpec
+import BMSAnalyticsAPI
 
 class ViewController: UIViewController {
 
@@ -22,7 +22,7 @@ class ViewController: UIViewController {
 	@IBOutlet weak var bottomLabel: UILabel!
 	@IBOutlet weak var errorTextView: UITextView!
 
-	let logger = Logger.loggerForName("ViewController")
+    let logger = Logger.logger(forName: "ViewController")
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
